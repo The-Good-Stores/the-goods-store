@@ -2,7 +2,7 @@
 
 # Frontend
 
-## Angular + Tailwind CSS
+## Angular + Bootstrap 5
 
 This project uses Angular.JS (typescript) as frontend Framework. 
 
