@@ -1,0 +1,20 @@
+{
+  "name": "the-goods-store",
+  "version": "1.0.0",
+  "description": "# Frontend",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm install --prefix server & npm install --prefix client",
+    "deploy": "npm run build --prefix client && npm start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/The-Good-Stores/the-goods-store.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/The-Good-Stores/the-goods-store/issues"
+  },
+  "homepage": "https://github.com/The-Good-Stores/the-goods-store#readme"
+}
