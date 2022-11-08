@@ -16,7 +16,14 @@ This project uses Angular.JS (typescript) as frontend Framework.
 
 
 # Backend
+1. run `npm install`
+2. run `npm run start` 
 
+# Build
+1. goto `/client`
+2. run `ng build`
+3. back to root directory
+4. run `npm run start`
 ##  Express.js, MongoDB
 For backend framework, this project uses Express.js.
 For Database, this project uses MongoDB (Atlas).
