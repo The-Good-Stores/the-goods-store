@@ -1,20 +1,19 @@
 {
-  "name": "the-goods-store",
-  "version": "1.0.0",
-  "description": "# Frontend",
-  "main": "index.js",
-  "scripts": {
-    "install": "npm install --prefix server & npm install --prefix client",
-    "deploy": "npm run build --prefix client && npm start --prefix server"
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.20"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/The-Good-Stores/the-goods-store.git"
+  "name": "the-good-store",
+  "version": "1.0.0",
+  "description": "COMP229 Group group project",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon src/server.js"
   },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/The-Good-Stores/the-goods-store/issues"
-  },
-  "homepage": "https://github.com/The-Good-Stores/the-goods-store#readme"
+  "license": "ISC"
 }
