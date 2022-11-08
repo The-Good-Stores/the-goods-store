@@ -12,7 +12,8 @@
   "description": "COMP229 Group group project",
   "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.js"
+    "start": "nodemon src/server.js",
+    "build": "npm run build --prefix client"
   },
   "author": "",
   "license": "ISC"
