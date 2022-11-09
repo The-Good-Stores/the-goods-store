@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @charset "UTF-8";
+/*@import "primeflex/primeflex.css";
+@import "primeicons/primeicons.css";*/
+@import "../node_modules/primeflex/primeflex.css";
+
 /*!
 * Start Bootstrap - One Page Wonder v6.0.5 (https://startbootstrap.com/theme/one-page-wonder)
 * Copyright 2013-2022 Start Bootstrap
@@ -80,6 +84,10 @@
 
 .gry{
   background-color: var(--bs-gray-100);
+}
+
+.right-sign{
+  margin-right: auto;
 }
 
 body {
