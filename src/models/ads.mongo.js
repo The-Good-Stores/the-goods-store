@@ -28,6 +28,6 @@ const adSchema = new mongoose.Schema(
     collection: "ads",
     timestamps: true,
   }
-);
+); 
 
 export default mongoose.model("Ad", adSchema);

@@ -28,6 +28,6 @@ const questionSchema = new mongoose.Schema(
     collection: "questions",
     timestamps: true,
   }
-);
+); 
 
 export default mongoose.model("Question", questionSchema);

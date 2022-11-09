@@ -19,7 +19,7 @@ export async function findUser(username) {
   return user;
 }
 
-//Register
+//Register 
 export async function registerUser(user) {
   const filter = { username: user.username };
   const user = await findUser(filter);
