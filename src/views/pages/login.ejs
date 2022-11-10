@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <header><%- include('../partials/nav'); %></header>
+  <body>
+    <body>
+      <div class="wrap">
+        <div class="form-wrap text-center">
+          <p class="py-2 fs-3">Login here</p>
+          <div class="logo">
+            <img src="/images/logo.png" alt="logo" href="#" />
+          </div>
+          <p class="fs-5 p-4 text-warning"><%- caution -%> </p>
+          <form id="login" action="user/auth" method="post" class="input-group">
+            <input
+              type="username"
+              id="username"
+              name="username"
+              class="input-field"
+              placeholder="Username"
+              required
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="input-field"
+              placeholder="Password"
+              required
+            />
+            <button
+            formaction="/user/auth"
+            type="submit"
+            class="submit"
+          >
+            Login
+          </button>
+          </form>
+          <form id="register" action="" class="input-group">
+            <input
+              type="text"
+              class="input-field"
+              placeholder="Username"
+              required
+            />
+            <input
+              type="email"
+              class="input-field"
+              placeholder="Your Email"
+              required
+            />
+            <input
+              type="password"
+              class="input-field"
+              placeholder="Enter Password"
+              required
+            />
+            <input type="checkbox" class="checkbox" /><span
+              >Terms and conditions</span
+            >
+            <button class="submit">REGISTER</button>
+          </form>
+        </div>
+      </div>
+    </body>
+  </body>
+</html>
