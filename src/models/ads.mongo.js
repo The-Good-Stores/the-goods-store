@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const adSchema = new mongoose.Schema(
   {
+    id: Number,
     username: {
       type: String,
       required: true,
@@ -28,6 +29,6 @@ const adSchema = new mongoose.Schema(
     collection: "ads",
     timestamps: true,
   }
-); 
+);
 
 export default mongoose.model("Ad", adSchema);
