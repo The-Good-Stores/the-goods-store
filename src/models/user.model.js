@@ -23,15 +23,15 @@ async function registerUser(user) {
   const filter = { username: user.username };
   const findeduser = await findUser(filter);
   if (findeduser === null) {
-      await userDb.create(user);
-      console.log("user registered");
-      return true
-  }
-  else {
-    return false
+    await userDb.create(user);
+    console.log("user registered");
+    return true;
+  } else {
+    return false;
   }
 }
 module.exports = {
   registerUser,
   User,
+  findUser,
 };
