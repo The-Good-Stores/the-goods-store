@@ -6,15 +6,15 @@ const api = require("./routes/api");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:4200",
   })
 );
-app.use("/api", api);
-app.use(morgan("combined"));
+app.use(morgan("tiny"));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
+app.use("/api", api);
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname));
 });
 

@@ -1,6 +1,6 @@
 const userDb = require("./user.mongo");
 
-export class User {
+class User {
   username;
   email;
   password;
@@ -13,23 +13,25 @@ export class User {
 }
 
 //Find user
-export async function findUser(username) {
-  const user = await userDb.findOne({ username });
-  console.log(user);
+async function findUser(filter) {
+  const user = await userDb.findOne(filter);
   return user;
 }
 
-//Register 
-export async function registerUser(user) {
+//Register
+async function registerUser(user) {
   const filter = { username: user.username };
-  const user = await findUser(filter);
-  if (user != null) {
-    const userToSave = new User(user.username, user.email, user.password);
-    try {
-      await userDb.findOneAndUpdate(filter, userToSave, { upsert: true });
+  const findeduser = await findUser(filter);
+  if (findeduser === null) {
+      await userDb.create(user);
       console.log("user registered");
-    } catch (error) {
-      console.log(error);
-    }
+      return true
+  }
+  else {
+    return false
   }
 }
+module.exports = {
+  registerUser,
+  User,
+};

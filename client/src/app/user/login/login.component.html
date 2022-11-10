@@ -1,26 +1,48 @@
-
+<app-alert *ngIf="showAlert" [color]="alertColor">{{ alertMsg }}</app-alert>
 <div class="wrap">
-    <div class="form-wrap">
-        <div class="button-wrap">
-            <div id="btn"></div>
-            <button type="button" class="togglebtn" onclick="login()">LOG IN</button>
-            <button type="button" class="togglebtn" onclick="register()">REGISTER</button>
+  <div class="form-wrap">
+    <div class="form-signin">
+      <form #loginForm="ngForm" (ngSubmit)="login()">
+        <img
+          class="mb-4"
+          src="../../../assets/logo.png"
+          alt=""
+          width="200"
+          height="200"
+        />
+        <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+        <div class="form-floating">
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            [(ngModel)]="credentials.email"
+            placeholder="name@example.com"
+            required
+            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+          />
+          <label for="floatingInput">Email address</label>
         </div>
-        <div class="logo">
-            <img src="../../../assets/img/logo.png" alt="logo" href="#">
+        <div class="form-floating">
+          <input
+            type="password"
+            name="password"
+            class="form-control"
+            [(ngModel)]="credentials.password"
+            placeholder="Password"
+            required
+          />
+          <label for="floatingPassword">Password</label>
         </div>
-        <form id="login" action="" class="input-group">
-            <input type="text" class="input-field" placeholder="User name or Email" required>
-            <input type="password" class="input-field" placeholder="Enter Password" required>
-            <input type="checkbox" class="checkbox"><span>Remember Password</span>
-            <button class="submit">Login</button>
-        </form>
-        <form id="register" action="" class="input-group">
-            <input type="text" class="input-field" placeholder="User name or Email" required>
-            <input type="email" class="input-field" placeholder="Your Email" required>
-            <input type="password" class="input-field" placeholder="Enter Password" required>
-            <input type="checkbox" class="checkbox"><span>Terms and conditions</span>
-            <button class="submit">REGISTER</button>
-        </form>
+        <button
+          type="submit"
+          class="submit my-4"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+      </form>
     </div>
+  </div>
 </div>
