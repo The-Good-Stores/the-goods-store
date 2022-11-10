@@ -14,7 +14,8 @@
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "build": "npm run build --prefix client"
+    "build": "npm run build --prefix client",
+    "watch": "nodemon src/server.js"
   },
   "author": "",
   "license": "ISC"

@@ -1,9 +1,9 @@
 require("dotenv").config();
-const http = require("http");
-const app = require("./app");
-const { mongoConnect } = require("./database/mongo");
+import { createServer } from "http";
+import app from "./app";
+import { mongoConnect } from "./database/mongo";
 const port = process.env.PORT || 8000;
-const SERVER = http.createServer(app);
+const SERVER = createServer(app);
 
 async function startServer() {
   // Please set up the MONGO_URL in .env file first, then you can uncomment next line
