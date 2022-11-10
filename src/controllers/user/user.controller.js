@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const { User, registerUser, findUser } = require("../../models/user.model");
-const userDb = require("../../models/user.mongo");
 
 async function httpPostRegisterUser(req, res) {
   console.log(req.body);

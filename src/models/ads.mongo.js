@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const adSchema = new mongoose.Schema(
   {
-    id: Number,
     username: {
       type: String,
       required: true,
@@ -31,4 +30,4 @@ const adSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Ad", adSchema);
+module.exports = mongoose.model("Ad", adSchema);
