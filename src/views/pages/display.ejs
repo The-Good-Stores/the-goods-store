@@ -6,35 +6,42 @@
   <header><%- include('../partials/nav'); %></header>
   <body>
     <body>
-      <div class="wrap">
-        <div class="form-wrap text-center">
-          <p class="py-2 fs-3">Product Details</p>
+      <div>
+        <div class="text-center">
+          <!-- Product Name -->
+          <p class="py-2 fs-3">Product Name</p>
           <div class="logo">
-            <img src="/images/logo.png" alt="logo" href="#" />
+            <!-- Product Photo -->
+            <img src="..." class="img-fluid" alt="product photo" />
           </div>
-          <p class="fs-5 p-4 text-warning"><%- caution -%> </p>
 
-           <!-- To add info collected from the database here-->
-          
-        <table>
+          <!-- To add info collected from the database here-->
+          <p>Description</p>
+          <table class="mx-auto">
             <tr>
-                <td>
-                    <a href="/edit" class="btn btn-primary btn-xl rounded-pill mt-5">
-                        Edit
-                    </a>
-                </td>
-                <td>
-                  <a href="/delete" class="btn btn-danger btn-xl rounded-pill mt-5">
-                      Delete
-                  </a>
+              <td>
+                <a
+                  href="/edit"
+                  class="btn btn-primary btn-xl rounded-pill mt-5"
+                >
+                  Edit
+                </a>
               </td>
-                <td>
-                    <a href="/" class="btn btn-primary btn-xl rounded-pill mt-5">
-                        Back
-                    </a>
-                </td>
+              <td>
+                <a
+                  href="/delete"
+                  class="btn btn-danger btn-xl rounded-pill mt-5"
+                >
+                  Delete
+                </a>
+              </td>
+              <td>
+                <a href="/" class="btn btn-primary btn-xl rounded-pill mt-5">
+                  Back
+                </a>
+              </td>
             </tr>
-        </table>
+          </table>
         </div>
       </div>
     </body>
