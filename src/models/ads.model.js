@@ -50,7 +50,13 @@ async function editAds(_id, ad) {
 }
 
 async function deleteAd(_id) {
-  await adsDb.findOneAndDelete({ _id });
+  try {
+    await adsDb.findOneAndDelete({ _id });
+    return ture;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 }
 module.exports = {
   getAllAds,
