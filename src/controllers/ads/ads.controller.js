@@ -1,14 +1,25 @@
-const { getAllAds, createAds } = require("../../models/ads.model");
+const {
+  getAllAds,
+  createAds,
+  getOneAd,
+  editAds,
+  Ad,
+} = require("../../models/ads.model");
 
 async function httpGetAllAds(req, res) {
   const ads = await getAllAds();
   res.render("pages/ads", { ads });
 }
-
+async function httpGetOneAd(req, res) {
+  const _id = req.params.id;
+  const ad = await getOneAd(_id);
+  res.render("pages/ad-details", { ad });
+}
 async function httpPostCreateAds(req, res) {
   const { title, username, body, begin, end } = req.body;
+  console.log({ body: req.body });
   const ad = { title, username, body, begin, end };
-
+  console.log({ ad });
   const createResult = await createAds(ad);
   if (createResult) {
     // What page we can redirect after user create ad successfully?
@@ -19,7 +30,16 @@ async function httpPostCreateAds(req, res) {
   }
 }
 
+async function httpPostUpdateAds(req, res) {
+  const _id = req.params.id;
+  const { title, username, body, begin, end } = req.body;
+  const updatedAd = new Ad(username, title, body, begin, end);
+  await editAds(_id, updatedAd);
+  res.redirect(`/ads/${_id}`);
+}
 module.exports = {
   httpGetAllAds,
   httpPostCreateAds,
+  httpPostUpdateAds,
+  httpGetOneAd,
 };
