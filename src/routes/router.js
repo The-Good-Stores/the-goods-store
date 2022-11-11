@@ -10,5 +10,14 @@ router.get("/login", (req, res) => {
 router.get("/register", (req, res) => {
   res.render("pages/register", { caution: "" });
 });
+router.get("/post", (req, res) => {
+  res.render("pages/post", { caution: "" });
+});
+router.get("/display", (req, res) => {
+  res.render("pages/display", { caution: "" });
+});
+router.get("/edit", (req, res) => {
+  res.render("pages/edit", { caution: "" });
+});
 
 module.exports = router;

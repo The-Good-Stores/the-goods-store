@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/head'); %>
+  </head>
+  <header><%- include('../partials/nav'); %></header>
+  <body>
+    <body>
+      <div class="wrap">
+        <div class="form-wrap text-center">
+          <p class="py-2 fs-3">Post a Product</p>
+          <div class="logo">
+            <img src="/images/logo.png" alt="logo" href="#" />
+          </div>
+          <p class="fs-5 p-4 text-warning"><%- caution -%> </p>
+          <form id="post" action="/post" method="post" class="input-group">
+            <input
+              type="id"
+              id="id"
+              name="id"
+              class="input-field"
+              placeholder="Product ID"
+              required
+            />
+            <input
+              type="username"
+              id="username"
+              name="username"
+              class="input-field"
+              placeholder="Username"
+              required
+            />
+            <input
+              type="title"
+              id="title"
+              name="title"
+              class="input-field"
+              placeholder="Product Title"
+              required
+            />
+            <input
+              type="body"
+              id="body"
+              name="body"
+              class="input-field"
+              placeholder="Content"
+              required
+            />
+            <input
+              type="date"
+              id="begin"
+              name="begin"
+              class="input-field"
+              placeholder="Begin Date"
+              required
+            />
+            <input
+              type="date"
+              id="end"
+              name="end"
+              class="input-field"
+              placeholder="End Date"
+              required
+            />
+            <button
+            type="submit"
+            class="submit"
+            >
+            Post
+          </button>
+          </form>
+        </div>
+      </div>
+    </body>
+  </body>
+</html>
