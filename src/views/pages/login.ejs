@@ -4,66 +4,53 @@
     <%- include('../partials/head'); %>
   </head>
   <header><%- include('../partials/nav'); %></header>
-  <body>
-    <body>
-      <div class="wrap">
-        <div class="form-wrap text-center">
-          <p class="py-2 fs-3">Login here</p>
-          <div class="logo">
-            <img src="/images/logo.png" alt="logo" href="#" />
+
+  <body class="container-fluid text-center mx-auto">
+    <section class="vh-80">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-9 col-lg-6 col-xl-5">
+            <img src="images/logo.png" class="img-fluid" alt="logo" />
           </div>
-          <p class="fs-5 p-4 text-warning"><%- caution -%> </p>
-          <form id="login" action="user/auth" method="post" class="input-group">
-            <input
-              type="username"
-              id="username"
-              name="username"
-              class="input-field"
-              placeholder="Username"
-              required
-            />
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="input-field"
-              placeholder="Password"
-              required
-            />
-            <button
-            formaction="/user/auth"
-            type="submit"
-            class="submit"
-          >
-            Login
-          </button>
-          </form>
-          <form id="register" action="" class="input-group">
-            <input
-              type="text"
-              class="input-field"
-              placeholder="Username"
-              required
-            />
-            <input
-              type="email"
-              class="input-field"
-              placeholder="Your Email"
-              required
-            />
-            <input
-              type="password"
-              class="input-field"
-              placeholder="Enter Password"
-              required
-            />
-            <input type="checkbox" class="checkbox" /><span
-              >Terms and conditions</span
-            >
-            <button class="submit">REGISTER</button>
-          </form>
+          <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+            <form id="login" action="user/auth" method="post">
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  name="username"
+                  class="form-control form-control-lg"
+                  placeholder="Username"
+                />
+              </div>
+
+              <!-- Password input -->
+              <div class="form-outline mb-3">
+                <input
+                  type="password"
+                  name="password"
+                  class="form-control form-control-lg"
+                  placeholder="Enter password"
+                />
+              </div>
+
+              <div class="text-center text-lg-start mt-4 pt-2">
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-lg"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem"
+                >
+                  Login
+                </button>
+                <p class="small fw-bold mt-2 pt-1 mb-0">
+                  Don't have an account?
+                  <a href="/register" class="link-danger">Register</a>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </body>
+    </section>
   </body>
 </html>

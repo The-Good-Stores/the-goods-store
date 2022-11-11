@@ -10,26 +10,11 @@
         <div class="form-wrap text-center">
           <p class="py-2 fs-3">Post a Product</p>
           <div class="logo">
+            <!-- It should be the product picture -->
             <img src="/images/logo.png" alt="logo" href="#" />
           </div>
           <p class="fs-5 p-4 text-warning"><%- caution -%> </p>
-          <form id="post" action="/post" method="post" class="input-group">
-            <input
-              type="id"
-              id="id"
-              name="id"
-              class="input-field"
-              placeholder="Product ID"
-              required
-            />
-            <input
-              type="username"
-              id="username"
-              name="username"
-              class="input-field"
-              placeholder="Username"
-              required
-            />
+          <form id="post" action="/ads/create" method="post" class="input-group">
             <input
               type="title"
               id="title"
