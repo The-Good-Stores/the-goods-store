@@ -4,6 +4,7 @@ const {
   getOneAd,
   editAds,
   Ad,
+  deleteAd,
 } = require("../../models/ads.model");
 
 async function httpGetAllAds(req, res) {
@@ -37,9 +38,20 @@ async function httpPostUpdateAds(req, res) {
   await editAds(_id, updatedAd);
   res.redirect(`/ads/${_id}`);
 }
+
+async function httpDeleteAd(req, res) {
+  const _id = req.params.id;
+  const deleteResult = await deleteAd(_id);
+  if (deleteResult) {
+    res.redirect("/ads");
+  } else {
+    res.redirect(`/ads/${_id}`);
+  }
+}
 module.exports = {
   httpGetAllAds,
   httpPostCreateAds,
   httpPostUpdateAds,
   httpGetOneAd,
+  httpDeleteAd,
 };
