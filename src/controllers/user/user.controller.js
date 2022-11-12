@@ -1,5 +1,15 @@
 const bcrypt = require("bcrypt");
+const passport = require("passport");
 const { User, registerUser, findUser } = require("../../models/user.model");
+
+async function httpGetLogout(req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+}
 
 async function httpPostRegisterUser(req, res) {
   console.log(req.body);
@@ -7,6 +17,7 @@ async function httpPostRegisterUser(req, res) {
   if (password != confirm_password) {
     res.render("pages/register", {
       caution: "Confirm password must same as your password",
+      user: req.user,
     });
   } else {
     try {
@@ -17,6 +28,7 @@ async function httpPostRegisterUser(req, res) {
       if (same != null) {
         res.render("pages/register", {
           caution: "username already existed, try using different username.",
+          user: req.user,
         });
       } else {
         const registerResult = await registerUser(userToSave);
@@ -27,6 +39,7 @@ async function httpPostRegisterUser(req, res) {
           console.log("Some Error occured.");
           res.render("pages/register", {
             caution: "Something wrong, please try again later.",
+            user: req.user,
           });
         }
       }
@@ -36,30 +49,16 @@ async function httpPostRegisterUser(req, res) {
   }
 }
 
-async function httpPostLogin(req, res) {
-  const { username, password } = req.body;
-  const user = await findUser({ username });
-  try {
-    if (user === null) {
-      res.render("pages/login", {
-        caution: "incorrect username or password.",
-      });
-    } else {
-      const hashed = user.password;
-      const compareResult = bcrypt.compareSync(password, hashed);
-      if (compareResult) {
-        res.redirect("/");
-      } else {
-        res.render("pages/login", {
-          caution: "incorrect username or password.",
-        });
-      }
-    }
-  } catch (error) {
-    console.error(error);
-  }
+async function httpPostLogin(req, res, next) {
+  console.log(req.body);
+  passport.authenticate("local", {
+    successRedirect: req.session.url || "/",
+    failureRedirect: "/login",
+  })(req, res, next);
+  delete req.session.url;
 }
 module.exports = {
   httpPostRegisterUser,
   httpPostLogin,
+  httpGetLogout,
 };

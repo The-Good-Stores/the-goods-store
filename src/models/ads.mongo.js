@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 const adSchema = new mongoose.Schema(
   {
+    adsId: String,
     username: {
       type: String,
       required: true,
@@ -21,8 +22,10 @@ const adSchema = new mongoose.Schema(
       minLength: 3,
       maxLength: 1000,
     },
+    price: Number,
     begin: Date,
     end: Date,
+    deliveryMethod: String,
   },
   {
     collection: "ads",
