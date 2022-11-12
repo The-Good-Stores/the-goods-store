@@ -9,7 +9,7 @@
       <div>
         <div class="text-center">
           <!-- Product Name -->
-          <p class="py-2 fs-3">Product Name</p>
+          <p class="py-2 fs-3"><%= ad.title %></p>
           <div class="logo">
             <!-- Product Photo -->
             <img src="..." class="img-fluid" alt="product photo" />
@@ -17,8 +17,14 @@
 
           <!-- To add info collected from the database here-->
           <p>Description</p>
+          <p><%= ad.body %></p>
+          <p>Price</p>
+          <p>$<%= ad.price %></p>
           <table class="mx-auto">
             <tr>
+              <% if (user != undefined && ad.username === user.username) { %>
+
+              <!-- Edit Button -->
               <td>
                 <a
                   href="/edit"
@@ -27,6 +33,7 @@
                   Edit
                 </a>
               </td>
+              <!-- Delete Button -->
               <td>
                 <a
                   href="/delete"
@@ -35,6 +42,8 @@
                   Delete
                 </a>
               </td>
+              <% } %>
+              <!-- Back Button -->
               <td>
                 <a href="/" class="btn btn-primary btn-xl rounded-pill mt-5">
                   Back
