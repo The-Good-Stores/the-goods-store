@@ -104,12 +104,12 @@ async function httpPostQuestion(req, res) {
 }
 
 async function httpPostAddAnswer(req, res) {
+  const adsId = req.params.id
   const qid = req.params.qid;
   const answer = req.body.answer;
-  console.log({ qid, answer });
   try {
     await addAnswer(qid, answer);
-    res.redirect("/ads");
+    res.redirect(`/ads/${adsId}`);
   } catch (error) {
     console.error(error);
   }

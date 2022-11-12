@@ -109,12 +109,12 @@
                                       </p>
                                       <% if  (user!= undefined && user.username === ad.username) { %>
                                        <form class="form-outline w-100" action="/ads/<%= ad.adsId %>/<%= question.questionId %>/answer" method="post">
-                                        <% if (question.answer) { %>
+
                                           <textarea class="form-control" id="answer" name="answer" rows="2"
                                   ></textarea>
                                   <button type="submit" class="btn btn-primary btn-sm m-2"> Answer</button>
                                          
-                                        <% } %>
+
                                        </form>
                                       <% } %>
                                       <!-- Reply Section -->
