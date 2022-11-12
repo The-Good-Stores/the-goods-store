@@ -17,5 +17,7 @@ router.get("/display", (req, res) => {
 router.get("/edit", (req, res) => {
   res.render("pages/edit", { caution: "", user: req.user });
 });
-
+router.get("/401", (req, res) => {
+  res.render("pages/401", { caution: "", user: req.user });
+});
 module.exports = router;
