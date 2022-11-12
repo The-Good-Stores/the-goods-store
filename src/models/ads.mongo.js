@@ -26,6 +26,7 @@ const adSchema = new mongoose.Schema(
     begin: Date,
     end: Date,
     deliveryMethod: String,
+    active: Boolean,
   },
   {
     collection: "ads",

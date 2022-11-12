@@ -4,8 +4,9 @@ const {
   getOneAd,
   editAds,
   Ad,
-  deleteAd,
+  disableAd,
   findUserAds,
+  activateAd,
 } = require("../../models/ads.model");
 const { v4: uuidv4 } = require("uuid");
 const {
@@ -59,6 +60,7 @@ async function httpPostCreateAds(req, res) {
     begin,
     end,
     deliveryMethod,
+    active: true,
   };
   console.log({ ad });
   const createResult = await createAds(ad);
@@ -79,9 +81,19 @@ async function httpPostUpdateAds(req, res) {
   res.redirect(`/ads/${adsId}`);
 }
 
-async function httpDeleteAd(req, res) {
+async function httpdisableAd(req, res) {
   const adsId = req.params.id;
-  const deleteResult = await deleteAd(adsId);
+  const deleteResult = await disableAd(adsId);
+  if (deleteResult) {
+    res.redirect("/ads/manage");
+  } else {
+    res.redirect(`/ads/${adsId}`);
+  }
+}
+
+async function httpActivateAd(req, res) {
+  const adsId = req.params.id;
+  const deleteResult = await activateAd(adsId);
   if (deleteResult) {
     res.redirect("/ads/manage");
   } else {
@@ -104,7 +116,7 @@ async function httpPostQuestion(req, res) {
 }
 
 async function httpPostAddAnswer(req, res) {
-  const adsId = req.params.id
+  const adsId = req.params.id;
   const qid = req.params.qid;
   const answer = req.body.answer;
   try {
@@ -120,10 +132,11 @@ module.exports = {
   httpPostCreateAds,
   httpPostUpdateAds,
   httpGetOneAd,
-  httpDeleteAd,
+  httpdisableAd,
   httpGetUserAds,
   httpGetPostPage,
   httpGetEditPage,
   httpPostQuestion,
+  httpActivateAd,
   httpPostAddAnswer,
 };
