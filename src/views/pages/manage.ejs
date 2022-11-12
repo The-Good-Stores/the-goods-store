@@ -52,19 +52,44 @@
                 <h6 class="text-success">
                   Delivery Method: <%= ad.deliveryMethod %>
                 </h6>
+                
+                  <% if (ad.active) { %>
+                    <h6 class="text-success">Status: active</h6>
+                     <% } else { %> 
+                      <h6 class="text-danger">Status:
+                        not active</h6>
+                       <% } %>
+                
                 <div class="d-flex flex-column mt-4">
-                  <a class="btn btn-outline-primary btn-sm mt-2" href="/ads/<%= ad.adsId %>">
+                  <a
+                    class="btn btn-outline-primary btn-sm mt-2"
+                    href="/ads/<%= ad.adsId %>"
+                  >
                     Details
                   </a>
-                  <a class="btn btn-primary btn-sm mt-2" href="edit/<%= ad.adsId %>">
+                  <a
+                    class="btn btn-primary btn-sm mt-2"
+                    href="edit/<%= ad.adsId %>"
+                  >
                     Edit
                   </a>
+                  <% if (ad.active) { %>
                   <a
                     class="btn btn-outline-danger btn-sm mt-2"
-                    href="delete/<%= ad.adsId %>"
+                    href="disable/<%= ad.adsId %>"
                   >
-                    Delete
+                    Disable
                   </a>
+
+                  <% } else { %>
+                  <a
+                    class="btn btn-success btn-sm mt-2"
+                    href="activate/<%= ad.adsId %>"
+                  >
+                    Activate
+                  </a>
+
+                  <% } %>
                 </div>
               </div>
             </div>

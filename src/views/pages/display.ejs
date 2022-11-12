@@ -61,15 +61,25 @@
                         </a>
                       </div>
                       <!-- Delete Button -->
-                      <div>
-                        <a
-                          href="/ads/delete/<%= ad.adsId %>"
-                          class="btn btn-danger btn-xl rounded-pill"
-                        >
-                          Delete
-                        </a>
-                      </div>
-                    <% } %>
+                        <div>
+                          <% if (ad.active) { %>
+                            <a
+                            href="/ads/disable/<%= ad.adsId %>"
+                            class="btn btn-danger btn-xl rounded-pill"
+                          >
+                            Disable
+                          </a> 
+                          
+                          <% } else { %>
+                            <a
+                            href="/ads/disable/<%= ad.adsId %>"
+                            class="btn btn-success btn-xl rounded-pill"
+                          >
+                            Activate
+                          </a>
+                           <% } %>
+                        </div>
+                        <% } %>
                   </div>
                 </div>
               </div>

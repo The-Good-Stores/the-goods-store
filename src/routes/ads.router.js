@@ -4,12 +4,13 @@ const {
   httpGetAllAds,
   httpGetOneAd,
   httpPostUpdateAds,
-  httpDeleteAd,
+  httpdisableAd,
   httpGetUserAds,
   httpGetPostPage,
   httpGetEditPage,
   httpPostQuestion,
   httpPostAddAnswer,
+  httpActivateAd,
 } = require("../controllers/ads/ads.controller");
 
 const adsRouter = express.Router();
@@ -27,9 +28,10 @@ adsRouter.get("/edit/:id", requireAuth, httpGetEditPage);
 
 adsRouter.get("/:id", httpGetOneAd);
 adsRouter.post("/:id/leave-question", httpPostQuestion);
-adsRouter.post("/:id/:qid/answer", httpPostAddAnswer);
-adsRouter.get("/delete/:id", httpDeleteAd);
-adsRouter.post("/create", httpPostCreateAds);
-adsRouter.post("/edit/:id", httpPostUpdateAds);
+adsRouter.post("/:id/:qid/answer", requireAuth, httpPostAddAnswer);
+adsRouter.get("/disable/:id", requireAuth, httpdisableAd);
+adsRouter.get("/activate/:id", requireAuth, httpActivateAd);
+adsRouter.post("/create", requireAuth, httpPostCreateAds);
+adsRouter.post("/edit/:id", requireAuth, httpPostUpdateAds);
 
 module.exports = adsRouter;

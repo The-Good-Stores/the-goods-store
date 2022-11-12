@@ -8,8 +8,19 @@ class Ad {
   begin;
   end;
   deliveryMethod;
+  active;
 
-  constructor(id, username, title, price, body, begin, end, deliveryMethod) {
+  constructor(
+    id,
+    username,
+    title,
+    price,
+    body,
+    begin,
+    end,
+    deliveryMethod,
+    active
+  ) {
     this.username = username;
     this.title = title;
     this.body = body;
@@ -18,13 +29,14 @@ class Ad {
     this.price = price;
     this.adsId = id;
     this.deliveryMethod = deliveryMethod;
+    this.active = active;
   }
 }
 
 async function getAllAds() {
   const allAds = await adsDb
     .find(
-      {},
+      { active: true },
       {
         __v: 0,
         _id: 0,
@@ -52,7 +64,8 @@ async function createAds(ad) {
     ad.body,
     ad.begin,
     ad.end,
-    ad.deliveryMethod
+    ad.deliveryMethod,
+    ad.active
   );
   try {
     await adsDb.create(adToSave);
@@ -71,21 +84,33 @@ async function editAds(adsId, ad) {
   }
 }
 
-async function deleteAd(adsId) {
+async function disableAd(adsId) {
   try {
-    await adsDb.findOneAndDelete({ adsId });
+    await adsDb.findOneAndUpdate({ adsId }, { active: false });
     return true;
   } catch (error) {
     console.error(error);
     return false;
   }
 }
+
+async function activateAd(adsId) {
+  try {
+    await adsDb.findOneAndUpdate({ adsId }, { active: true });
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
 module.exports = {
   getAllAds,
   getOneAd,
   createAds,
   editAds,
-  deleteAd,
+  disableAd,
   findUserAds,
+  activateAd,
   Ad,
 };
