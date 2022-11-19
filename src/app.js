@@ -1,3 +1,13 @@
+// Project Name: Used Goods Store
+// Date: Nov 19 2022
+// Project Member (SID):
+// Long Tang (301225866)
+// Alabed, Nabeel
+// Chung, Wonyoung
+// Park, Inhee
+// Vu, Thi Thanh Thu
+// Yeom, Hanna
+
 // const path = require("path");
 const express = require("express");
 const app = express();
