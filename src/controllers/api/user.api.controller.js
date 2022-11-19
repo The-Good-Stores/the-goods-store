@@ -3,16 +3,16 @@ const passport = require("passport");
 const { User, registerUser, findUser } = require("../../models/user.model");
 
 async function httpApiGetLogout(req, res, next) {
-    console.log(req.user);
+  console.log(req.user);
   req.logout(function (err) {
     if (err) {
       res.status(400).json({
-        status: "Bad Request",
+        success: false,
         message: err,
       });
     }
     res.status(200).json({
-      status: "success",
+      success: true,
     });
   });
 }
@@ -22,7 +22,7 @@ async function httpApiPostRegisterUser(req, res) {
   const { username, email, password, confirm_password } = req.body;
   if (password != confirm_password) {
     res.status(400).json({
-      status: "failed",
+      success: false,
       message: "Confirm password must same as your password",
     });
   } else {
@@ -33,7 +33,7 @@ async function httpApiPostRegisterUser(req, res) {
       const same = await findUser({ username });
       if (same != null) {
         res.status(400).json({
-          status: "failed",
+          success: false,
           message: "username already existed, try using different username.",
         });
       } else {
@@ -42,19 +42,19 @@ async function httpApiPostRegisterUser(req, res) {
         if (registerResult) {
           console.log(`user ${username} added into the database`);
           res.status(200).json({
-            status: "success",
+            success: true,
           });
         } else {
           console.log("Some Error occured.");
           res.status(400).json({
-            status: "failed",
+            success: false,
             message: "Some Error occured",
           });
         }
       }
     } catch (error) {
       res.status(400).json({
-        status: "error",
+        scueess: false,
         message: error.message,
       });
     }
