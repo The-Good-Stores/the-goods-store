@@ -1,3 +1,13 @@
+// Project Name: Used Goods Store
+// Date: Nov 19 2022
+// Project Member (SID):
+// Long Tang (301225866)
+// Alabed, Nabeel
+// Chung, Wonyoung
+// Park, Inhee
+// Vu, Thi Thanh Thu
+// Yeom, Hanna
+
 require("dotenv").config();
 const http = require("http");
 const app = require("./app");
