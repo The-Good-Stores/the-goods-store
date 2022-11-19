@@ -3,7 +3,6 @@ const passport = require("passport");
 const { User, registerUser, findUser } = require("../../models/user.model");
 
 async function httpApiGetLogout(req, res, next) {
-  console.log(req.user);
   req.logout(function (err) {
     if (err) {
       res.status(400).json({
@@ -72,13 +71,14 @@ async function httpApiPostLogin(req, res, next) {
         success: false,
         status: "Login Unsuccessful",
       });
+    } else {
+      req.login(user, (err) => {
+        if (err) {
+          next(err);
+        }
+        res.json({ success: true, status: "Login Successfully", user });
+      });
     }
-    req.login(user, (err) => {
-      if (err) {
-        next(err);
-      }
-      res.json({ success: true, status: "Login Successfully" });
-    });
   })(req, res, next);
 }
 module.exports = {
