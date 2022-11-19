@@ -36,7 +36,7 @@ class Ad {
 async function getAllAds() {
   const allAds = await adsDb
     .find(
-      { active: true },
+      { },
       {
         __v: 0,
         _id: 0,
