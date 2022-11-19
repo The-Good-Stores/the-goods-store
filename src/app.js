@@ -9,13 +9,13 @@ const session = require("express-session");
 const strategy = require("./config/local");
 const apiRouter = require("./routes/api.router");
 
-// const cors = require("cors");
+const cors = require("cors");
 // const morgan = require("morgan");
-// app.use(
-//   cors({
-//     origin: "http://localhost:4200",
-//   })
-// );
+app.use(
+  cors({
+    origin: "http://localhost:4200",
+  })
+);
 // app.use(morgan("tiny"));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
