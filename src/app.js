@@ -7,6 +7,7 @@ const userRouter = require("./routes/user.router");
 const adsRouter = require("./routes/ads.router");
 const session = require("express-session");
 const strategy = require("./config/local");
+const apiRouter = require("./routes/api.router");
 
 // const cors = require("cors");
 // const morgan = require("morgan");
@@ -44,6 +45,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/", router);
+app.use("/api", apiRouter);
 app.use("/user", userRouter);
 app.use("/ads", adsRouter);
 

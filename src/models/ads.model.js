@@ -78,9 +78,13 @@ async function createAds(ad) {
 
 async function editAds(adsId, ad) {
   try {
-    await adsDb.findOneAndUpdate({ adsId }, ad, { new: true });
+    await adsDb.findOneAndUpdate({ adsId }, ad, {
+      new: true,
+    });
+    return true;
   } catch (error) {
     console.error(error);
+    return false;
   }
 }
 
