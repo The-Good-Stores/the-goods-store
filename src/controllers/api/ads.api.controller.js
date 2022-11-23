@@ -17,7 +17,11 @@ const {
   activateAd,
 } = require("../../models/ads.model");
 const { v4: uuidv4 } = require("uuid");
-const { addAnswer, saveQuestion } = require("../../models/quesiton.model");
+const {
+  addAnswer,
+  saveQuestion,
+  getAdQuestion,
+} = require("../../models/quesiton.model");
 async function httpApiGetAllAds(req, res) {
   try {
     const docs = await getAllAds();
@@ -43,10 +47,12 @@ async function httpApiGetOneAd(req, res) {
   try {
     const adsId = req.params.id;
     const doc = await getOneAd(adsId);
+    const questiondoc = await getAdQuestion(adsId);
     if (doc) {
       res.status(200).json({
         status: "Success",
         data: doc,
+        question: questiondoc,
       });
     } else {
       res.status(404).json({
@@ -211,19 +217,19 @@ async function httpApiPostAddAnswer(req, res) {
   try {
     const addResult = await addAnswer(qid, answer);
     if (addResult) {
-        res.status(201).json({
-          status: "Answer saved",
-        });
-      } else {
-        res.status(400).json({
-          status: "Failed",
-        });
-      }
+      res.status(201).json({
+        status: "Answer saved",
+      });
+    } else {
+      res.status(400).json({
+        status: "Failed",
+      });
+    }
   } catch (error) {
     res.status(400).json({
-        status: "error",
-        message: error,
-      });
+      status: "error",
+      message: error,
+    });
   }
 }
 
