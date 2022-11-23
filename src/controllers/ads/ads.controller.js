@@ -16,6 +16,7 @@ const {
   disableAd,
   findUserAds,
   activateAd,
+  getActiveAds,
 } = require("../../models/ads.model");
 const { v4: uuidv4 } = require("uuid");
 const {
@@ -24,7 +25,7 @@ const {
   addAnswer,
 } = require("../../models/quesiton.model");
 async function httpGetAllAds(req, res) {
-  const ads = await getAllAds();
+  const ads = await getActiveAds();
   res.render("pages/ads", { ads, user: req.user });
 }
 
