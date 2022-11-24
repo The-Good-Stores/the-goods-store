@@ -10,7 +10,7 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const { User, registerUser, findUser } = require("../../models/user.model");
-
+const jwt = require("jsonwebtoken");
 async function httpApiGetLogout(req, res, next) {
   req.logout(function (err) {
     if (err) {
@@ -70,7 +70,6 @@ async function httpApiPostRegisterUser(req, res) {
 }
 
 async function httpApiPostLogin(req, res, next) {
-  console.log(req.body);
   passport.authenticate("local", (err, user, info) => {
     if (err) {
       next(err);
@@ -85,7 +84,13 @@ async function httpApiPostLogin(req, res, next) {
         if (err) {
           next(err);
         }
-        res.json({ success: true, status: "Login Successfully", user });
+        const token = jwt.sign({ user }, process.env.JWT_SECRET);
+        res.json({
+          success: true,
+          status: "Login Successfully",
+          token,
+          username: user.username,
+        });
       });
     }
   })(req, res, next);
