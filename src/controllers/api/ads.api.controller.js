@@ -108,11 +108,13 @@ async function httpApiPostAds(req, res) {
   const createResult = await createAds(ad);
   if (createResult) {
     res.status(201).json({
-      status: "Created",
+      success: true,
+      message: "Created",
     });
   } else {
     res.status(400).json({
-      status: "Not Success",
+      success: false,
+      message: "Not Success",
     });
   }
 }
@@ -126,16 +128,18 @@ async function httpApiPostUpdateAd(req, res) {
     console.log({ updateResult });
     if (updateResult) {
       res.status(200).json({
-        status: "Updated",
+        success: true,
+        message: "Updated",
       });
     } else {
       res.status(400).json({
-        status: "Failed",
+        success: false,
+        message: "Failed",
       });
     }
   } catch (error) {
     res.status(400).json({
-      status: "error",
+      success: false,
       message: error,
     });
   }
@@ -146,16 +150,18 @@ async function httpApiDisableAd(req, res) {
     const deleteResult = await disableAd(adsId);
     if (deleteResult) {
       res.status(200).json({
-        status: "Updated",
+        success: true,
+        message: "Updated",
       });
     } else {
       res.status(400).json({
-        status: "Failed",
+        success: false,
+        message: "Failed",
       });
     }
   } catch (error) {
     res.status(400).json({
-      status: "error",
+      success: false,
       message: error,
     });
   }
@@ -167,16 +173,18 @@ async function httpApiActivateAd(req, res) {
     const activeResult = await activateAd(adsId);
     if (activeResult) {
       res.status(200).json({
-        status: "Updated",
+        success: true,
+        message: "Updated",
       });
     } else {
       res.status(400).json({
-        status: "Failed",
+        success: false,
+        message: "Failed",
       });
     }
   } catch (error) {
     res.status(400).json({
-      status: "error",
+      success: false,
       message: error,
     });
   }
@@ -195,16 +203,18 @@ async function httpApiPostQuestion(req, res) {
     const saveResult = await saveQuestion(questionToSave);
     if (saveResult) {
       res.status(201).json({
-        status: "Question saved",
+        success: true,
+        message: "Question saved",
       });
     } else {
       res.status(400).json({
-        status: "Failed",
+        success: false,
+        message: "Failed",
       });
     }
   } catch (error) {
     res.status(400).json({
-      status: "error",
+      success: false,
       message: error,
     });
   }
@@ -218,16 +228,18 @@ async function httpApiPostAddAnswer(req, res) {
     const addResult = await addAnswer(qid, answer);
     if (addResult) {
       res.status(201).json({
-        status: "Answer saved",
+        success: true,
+        message: "Answer saved",
       });
     } else {
       res.status(400).json({
-        status: "Failed",
+        success: false,
+        message: "Failed",
       });
     }
   } catch (error) {
     res.status(400).json({
-      status: "error",
+      success: false,
       message: error,
     });
   }
