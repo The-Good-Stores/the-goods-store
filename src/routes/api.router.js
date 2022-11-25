@@ -26,6 +26,15 @@ const {
 } = require("../controllers/api/user.api.controller");
 const apiRouter = express.Router();
 
+function requireAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.status(401).json({
+    success: false,
+    message: "Unathorized",
+  });
+}
 //Ads API For Frontend
 //GET METHODS
 apiRouter
@@ -38,17 +47,17 @@ apiRouter
 //POST METHODS
 //POST ad
 apiRouter
-  .post("/ads/post", httpApiPostAds)
+  .post("/ads/post", requireAuth, httpApiPostAds)
   //POST update ad (params: id = AdsId)
-  .post("/ads/update/:id", httpApiPostUpdateAd)
+  .post("/ads/update/:id", requireAuth, httpApiPostUpdateAd)
   //POST activate ad (params: id = AdsId)
-  .post("/ads/activate/:id", httpApiActivateAd)
+  .post("/ads/activate/:id", requireAuth, httpApiActivateAd)
   //POST disable ad (params: id = AdsId)
-  .post("/ads/disable/:id", httpApiDisableAd)
+  .post("/ads/disable/:id", requireAuth, httpApiDisableAd)
   //POST add question (params: id = adsId)
   .post("/ads/add-question/:id", httpApiPostQuestion)
   //POST add answer (params: id = adsId && qid = quesiton id)
-  .post("/ads/add-answer/:id/:qid", httpApiPostAddAnswer);
+  .post("/ads/add-answer/:id/:qid", requireAuth, httpApiPostAddAnswer);
 
 //User API For Frontend
 //GET METHODS
