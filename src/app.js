@@ -23,7 +23,7 @@ const cors = require("cors");
 // const morgan = require("morgan");
 app.use(
   cors({
-    origin: ["http://localhost:4200","https://used-good-store.vercel.app/"],
+    origin: ["http://localhost:4200", "https://used-good-store.vercel.app"],
   })
 );
 // app.use(morgan("tiny"));
