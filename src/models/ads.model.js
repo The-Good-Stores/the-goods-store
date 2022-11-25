@@ -45,7 +45,19 @@ class Ad {
 async function getAllAds() {
   const allAds = await adsDb
     .find(
-      { },
+      {},
+      {
+        __v: 0,
+        _id: 0,
+      }
+    )
+    .sort({ createdAt: -1 });
+  return allAds;
+}
+async function getActiveAds() {
+  const allAds = await adsDb
+    .find(
+      { active: true },
       {
         __v: 0,
         _id: 0,
@@ -125,5 +137,6 @@ module.exports = {
   disableAd,
   findUserAds,
   activateAd,
+  getActiveAds,
   Ad,
 };
