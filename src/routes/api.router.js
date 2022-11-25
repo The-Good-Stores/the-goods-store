@@ -7,6 +7,8 @@
 // Park, Inhee
 // Vu, Thi Thanh Thu
 // Yeom, Hanna
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const express = require("express");
 const {
   httpApiGetAllAds,
@@ -25,8 +27,11 @@ const {
   httpApiPostLogin,
 } = require("../controllers/api/user.api.controller");
 const apiRouter = express.Router();
-
 function requireAuth(req, res, next) {
+  const token = req.headers.authentication.split(" ")[1];
+  resolvedToken = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = resolvedToken.user;
+  console.log(req.user);
   if (req.isAuthenticated()) {
     return next();
   }
