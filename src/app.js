@@ -8,25 +8,22 @@
 // Vu, Thi Thanh Thu
 // Yeom, Hanna
 
-// const path = require("path");
 const express = require("express");
 const app = express();
 const passport = require("passport");
 const router = require("./routes/router");
 const userRouter = require("./routes/user.router");
 const adsRouter = require("./routes/ads.router");
-const session = require("express-session");
 const strategy = require("./config/local");
 const apiRouter = require("./routes/api.router");
+const session = require("express-session");
 
 const cors = require("cors");
-// const morgan = require("morgan");
 app.use(
   cors({
     origin: ["http://localhost:4200", "https://used-good-store.vercel.app"],
   })
 );
-// app.use(morgan("tiny"));
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 app.use(
