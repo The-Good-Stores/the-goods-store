@@ -25,7 +25,7 @@ async function httpApiGetLogout(req, res, next) {
   });
 }
 
-async function httpApiPostRegisterUser(req, res) {
+async function httpApiPostRegisterUser(req, res, next) {
   console.log(req.body);
   const { username, email, password, confirm_password } = req.body;
   if (password != confirm_password) {
@@ -48,12 +48,28 @@ async function httpApiPostRegisterUser(req, res) {
         const registerResult = await registerUser(userToSave);
         console.log(registerResult);
         if (registerResult) {
-          console.log(`user ${username} added into the database`);
-          const token = jwt.sign({ user }, process.env.JWT_SECRET);
-          res.status(200).json({
-            success: true,
-            token,
-          });
+          passport.authenticate("local", (err, user, info) => {
+            if (err) {
+              next(err);
+            }
+            if (!user) {
+              res.json({
+                success: false,
+                status: "Login Unsuccessful",
+              });
+            } else {
+              req.login(user, (err) => {
+                if (err) return next(err);
+                const token = jwt.sign({ user }, process.env.JWT_SECRET);
+                res.json({
+                  success: true,
+                  status: "Register and Login Successfully",
+                  token,
+                  username: user.username,
+                });
+              });
+            }
+          })(req, res, next);
         } else {
           console.log("Some Error occured.");
           res.status(400).json({
