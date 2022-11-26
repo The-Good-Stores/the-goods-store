@@ -49,8 +49,10 @@ async function httpApiPostRegisterUser(req, res) {
         console.log(registerResult);
         if (registerResult) {
           console.log(`user ${username} added into the database`);
+          const token = jwt.sign({ user }, process.env.JWT_SECRET);
           res.status(200).json({
             success: true,
+            token,
           });
         } else {
           console.log("Some Error occured.");
@@ -82,14 +84,14 @@ async function httpApiPostLogin(req, res, next) {
     } else {
       req.login(user, (err) => {
         if (err) return next(err);
-      
+
         const token = jwt.sign({ user }, process.env.JWT_SECRET);
         res.json({
           success: true,
           status: "Login Successfully",
           token,
           username: user.username,
-        })
+        });
       });
     }
   })(req, res, next);
