@@ -18,6 +18,7 @@ class Ad {
   end;
   deliveryMethod;
   active;
+  imgUrl;
 
   constructor(
     id,
@@ -28,7 +29,8 @@ class Ad {
     begin,
     end,
     deliveryMethod,
-    active
+    active,
+    imgUrl
   ) {
     this.username = username;
     this.title = title;
@@ -39,6 +41,7 @@ class Ad {
     this.adsId = id;
     this.deliveryMethod = deliveryMethod;
     this.active = active;
+    this.imgUrl = imgUrl
   }
 }
 
