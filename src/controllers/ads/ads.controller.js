@@ -9,56 +9,88 @@
 // Yeom, Hanna
 const {
   getAllAds,
-  createAds,
   getOneAd,
-  editAds,
-  Ad,
-  disableAd,
   findUserAds,
+  createAds,
+  editAds,
+  disableAd,
   activateAd,
-  getActiveAds,
 } = require("../../models/ads.model");
 const { v4: uuidv4 } = require("uuid");
 const {
+  addAnswer,
   saveQuestion,
   getAdQuestion,
-  addAnswer,
 } = require("../../models/quesiton.model");
-async function httpGetAllAds(req, res) {
-  const ads = await getActiveAds();
-  res.render("pages/ads", { ads, user: req.user });
-}
-
-async function httpGetPostPage(req, res) {
-  const emptyAd = new Ad();
-  res.render("pages/post", { user: req.user, caution: "", ad: emptyAd });
-}
-
-async function httpGetEditPage(req, res) {
-  const adsId = req.params.id;
-  const adToEdit = await getOneAd(adsId);
-  if (req.user.username === adToEdit.username) {
-    res.render("pages/post", { user: req.user, caution: "", ad: adToEdit });
-  } else {
-    res.redirect("/401");
+async function httpApiGetAllAds(req, res) {
+  try {
+    const docs = await getAllAds();
+    if (docs) {
+      res.status(200).json({
+        status: "Success",
+        data: docs,
+      });
+    } else {
+      res.status(404).json({
+        status: "Not Found",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: error,
+    });
   }
 }
-async function httpGetUserAds(req, res) {
-  const username = req.user.username;
-  const userAds = await findUserAds(username);
-  console.log({ userAds });
-  res.render("pages/manage", { ads: userAds, user: req.user });
+
+async function httpApiGetOneAd(req, res) {
+  try {
+    const adsId = req.params.id;
+    const doc = await getOneAd(adsId);
+    const questiondoc = await getAdQuestion(adsId);
+    if (doc) {
+      res.status(200).json({
+        status: "Success",
+        data: doc,
+        question: questiondoc,
+      });
+    } else {
+      res.status(404).json({
+        status: "Not Found",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: error,
+    });
+  }
 }
-async function httpGetOneAd(req, res) {
-  const adsId = req.params.id;
-  const ad = await getOneAd(adsId);
-  const questions = await getAdQuestion(adsId);
-  console.log({ user: req.user, questions });
-  res.render("pages/display", { ad, user: req.user, questions });
+
+async function httpApiGetUserAds(req, res) {
+  try {
+    const username = req.params.username;
+    const docs = await findUserAds(username);
+    if (docs) {
+      res.status(200).json({
+        status: "Success",
+        data: docs,
+      });
+    } else {
+      res.status(404).json({
+        status: "Not Found",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: error,
+    });
+  }
 }
-async function httpPostCreateAds(req, res) {
-  const { title, body, price, end, deliveryMethod } = req.body;
-  const username = req.user.username;
+
+async function httpApiPostAds(req, res) {
+  const { username, title, body, price, end, deliveryMethod } = req.body;
   const begin = new Date();
   console.log({ body: req.body });
   const ad = {
@@ -75,78 +107,152 @@ async function httpPostCreateAds(req, res) {
   console.log({ ad });
   const createResult = await createAds(ad);
   if (createResult) {
-    // What page we can redirect after user create ad successfully?
-    res.redirect("/");
+    res.status(201).json({
+      success: true,
+      message: "Created",
+    });
   } else {
-    // Something went wrong, the ad cannot create
-    res.redirect("/");
+    res.status(400).json({
+      success: false,
+      message: "Not Success",
+    });
   }
 }
 
-async function httpPostUpdateAds(req, res) {
-  const adsId = req.params.id;
-  const { title, body, price, end, deliveryMethod } = req.body;
-  const updatedAd = { title, body, price, end, deliveryMethod };
-  await editAds(adsId, updatedAd);
-  res.redirect(`/ads/${adsId}`);
+async function httpApiPostUpdateAd(req, res) {
+  try {
+    const adsId = req.params.id;
+    const { title, body, price, end, deliveryMethod } = req.body;
+    const updatedAd = { title, body, price, end, deliveryMethod };
+    const updateResult = await editAds(adsId, updatedAd);
+    console.log({ updateResult });
+    if (updateResult) {
+      res.status(200).json({
+        success: true,
+        message: "Updated",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Failed",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error,
+    });
+  }
 }
-
-async function httpdisableAd(req, res) {
+async function httpApiDisableAd(req, res) {
   const adsId = req.params.id;
-  const deleteResult = await disableAd(adsId);
-  if (deleteResult) {
-    res.redirect("/ads/manage");
-  } else {
-    res.redirect(`/ads/${adsId}`);
+  try {
+    const deleteResult = await disableAd(adsId);
+    if (deleteResult) {
+      res.status(200).json({
+        success: true,
+        message: "Updated",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Failed",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error,
+    });
   }
 }
 
-async function httpActivateAd(req, res) {
+async function httpApiActivateAd(req, res) {
   const adsId = req.params.id;
-  const deleteResult = await activateAd(adsId);
-  if (deleteResult) {
-    res.redirect("/ads/manage");
-  } else {
-    res.redirect(`/ads/${adsId}`);
+  try {
+    const activeResult = await activateAd(adsId);
+    if (activeResult) {
+      res.status(200).json({
+        success: true,
+        message: "Updated",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Failed",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error,
+    });
   }
 }
 
-//Q&A Meothds
-async function httpPostQuestion(req, res) {
+async function httpApiPostQuestion(req, res) {
   const adsId = req.params.id;
   const question = req.body.question;
   const questionId = uuidv4();
-  const questionToSave = {
-    adsId,
-    questionId,
-    question,
-  };
-  const saveResult = await saveQuestion(questionToSave);
-  res.redirect(`/ads/${adsId}`);
+  try {
+    const questionToSave = {
+      adsId,
+      questionId,
+      question,
+    };
+    const saveResult = await saveQuestion(questionToSave);
+    if (saveResult) {
+      res.status(201).json({
+        success: true,
+        message: "Question saved",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Failed",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error,
+    });
+  }
 }
 
-async function httpPostAddAnswer(req, res) {
+async function httpApiPostAddAnswer(req, res) {
   const adsId = req.params.id;
   const qid = req.params.qid;
   const answer = req.body.answer;
   try {
-    await addAnswer(qid, answer);
-    res.redirect(`/ads/${adsId}`);
+    const addResult = await addAnswer(qid, answer);
+    if (addResult) {
+      res.status(201).json({
+        success: true,
+        message: "Answer saved",
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Failed",
+      });
+    }
   } catch (error) {
-    console.error(error);
+    res.status(400).json({
+      success: false,
+      message: error,
+    });
   }
 }
 
 module.exports = {
-  httpGetAllAds,
-  httpPostCreateAds,
-  httpPostUpdateAds,
-  httpGetOneAd,
-  httpdisableAd,
-  httpGetUserAds,
-  httpGetPostPage,
-  httpGetEditPage,
-  httpPostQuestion,
-  httpActivateAd,
-  httpPostAddAnswer,
+  httpApiGetAllAds,
+  httpApiGetOneAd,
+  httpApiGetUserAds,
+  httpApiPostAds,
+  httpApiPostUpdateAd,
+  httpApiDisableAd,
+  httpApiActivateAd,
+  httpApiPostQuestion,
+  httpApiPostAddAnswer,
 };

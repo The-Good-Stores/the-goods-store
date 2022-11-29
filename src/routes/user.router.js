@@ -9,15 +9,15 @@
 // Yeom, Hanna
 const express = require("express");
 const {
-  httpPostRegisterUser,
-  httpPostLogin,
-  httpGetLogout,
+  httpApiGetLogout,
+  httpApiPostRegisterUser,
+  httpApiPostLogin,
 } = require("../controllers/user/user.controller");
 const userRouter = express.Router();
-
-userRouter.get("/logout", httpGetLogout);
-
-userRouter.post("/register", httpPostRegisterUser);
-userRouter.post("/auth", httpPostLogin);
-
+//User API For Frontend
+//GET METHODS
+userRouter.get("/logout", httpApiGetLogout);
+//POST METHODS
+userRouter.post("/login", httpApiPostLogin);
+userRouter.post("/register", httpApiPostRegisterUser);
 module.exports = userRouter;

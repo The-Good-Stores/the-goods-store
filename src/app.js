@@ -11,11 +11,8 @@
 const express = require("express");
 const app = express();
 const passport = require("passport");
-const router = require("./routes/router");
-const userRouter = require("./routes/user.router");
-const adsRouter = require("./routes/ads.router");
 const strategy = require("./config/local");
-const apiRouter = require("./routes/api.router");
+const router = require("./routes/api.router");
 const session = require("express-session");
 
 const cors = require("cors");
@@ -24,8 +21,6 @@ app.use(
     origin: ["http://localhost:4200", "https://used-good-store.vercel.app"],
   })
 );
-app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
 app.use(
   session({
     saveUninitialized: true,
@@ -48,12 +43,11 @@ passport.deserializeUser(function (user, cb) {
     return cb(null, user);
   });
 });
-app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use("/", router);
-app.use("/api", apiRouter);
-app.use("/user", userRouter);
-app.use("/ads", adsRouter);
+app.use("/api", router);
+app.use("/", (req, res) => {
+  res.send("Used Good Store API");
+});
 
 module.exports = app;

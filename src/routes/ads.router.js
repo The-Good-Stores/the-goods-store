@@ -7,40 +7,55 @@
 // Park, Inhee
 // Vu, Thi Thanh Thu
 // Yeom, Hanna
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const express = require("express");
 const {
-  httpPostCreateAds,
-  httpGetAllAds,
-  httpGetOneAd,
-  httpPostUpdateAds,
-  httpdisableAd,
-  httpGetUserAds,
-  httpGetPostPage,
-  httpGetEditPage,
-  httpPostQuestion,
-  httpPostAddAnswer,
-  httpActivateAd,
+  httpApiGetAllAds,
+  httpApiGetOneAd,
+  httpApiGetUserAds,
+  httpApiPostAds,
+  httpApiPostUpdateAd,
+  httpApiActivateAd,
+  httpApiDisableAd,
+  httpApiPostQuestion,
+  httpApiPostAddAnswer,
 } = require("../controllers/ads/ads.controller");
-
 const adsRouter = express.Router();
-
 function requireAuth(req, res, next) {
+  const token = req.headers.authentication.split(" ")[1];
+  resolvedToken = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = resolvedToken.user;
+  console.log(req.user);
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/login");
+  res.status(401).json({
+    success: false,
+    message: "Unathorized",
+  });
 }
-adsRouter.get("/", httpGetAllAds);
-adsRouter.get("/manage", requireAuth, httpGetUserAds);
-adsRouter.get("/post", requireAuth, httpGetPostPage);
-adsRouter.get("/edit/:id", requireAuth, httpGetEditPage);
-
-adsRouter.get("/:id", httpGetOneAd);
-adsRouter.post("/:id/leave-question", httpPostQuestion);
-adsRouter.post("/:id/:qid/answer", requireAuth, httpPostAddAnswer);
-adsRouter.get("/disable/:id", requireAuth, httpdisableAd);
-adsRouter.get("/activate/:id", requireAuth, httpActivateAd);
-adsRouter.post("/create", requireAuth, httpPostCreateAds);
-adsRouter.post("/edit/:id", requireAuth, httpPostUpdateAds);
-
+//Ads API For Frontend
+//GET METHODS
+adsRouter
+  //GET all ads
+  .get("/all", httpApiGetAllAds)
+  //GET user ads by username
+  .get("/user/:username", httpApiGetUserAds)
+  //GET one ad by Ads Id
+  .get("/:id", httpApiGetOneAd);
+//POST METHODS
+//POST ad
+adsRouter
+  .post("/post", requireAuth, httpApiPostAds)
+  //POST update ad (params: id = AdsId)
+  .post("/update/:id", requireAuth, httpApiPostUpdateAd)
+  //POST activate ad (params: id = AdsId)
+  .post("/activate/:id", requireAuth, httpApiActivateAd)
+  //POST disable ad (params: id = AdsId)
+  .post("/disable/:id", requireAuth, httpApiDisableAd)
+  //POST add question (params: id = adsId)
+  .post("/add-question/:id", httpApiPostQuestion)
+  //POST add answer (params: id = adsId && qid = quesiton id)
+  .post("/add-answer/:id/:qid", requireAuth, httpApiPostAddAnswer);
 module.exports = adsRouter;
