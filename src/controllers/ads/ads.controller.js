@@ -90,7 +90,7 @@ async function httpApiGetUserAds(req, res) {
 }
 
 async function httpApiPostAds(req, res) {
-  const { username, title, body, price, end, deliveryMethod } = req.body;
+  const { username, title, body, price, end, deliveryMethod, imgUrl } = req.body;
   const begin = new Date();
   console.log({ body: req.body });
   const ad = {
@@ -103,6 +103,7 @@ async function httpApiPostAds(req, res) {
     end,
     deliveryMethod,
     active: true,
+    imgUrl
   };
   console.log({ ad });
   const createResult = await createAds(ad);
