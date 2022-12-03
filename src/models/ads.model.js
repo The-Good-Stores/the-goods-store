@@ -41,7 +41,7 @@ class Ad {
     this.adsId = id;
     this.deliveryMethod = deliveryMethod;
     this.active = active;
-    this.imgUrl = imgUrl
+    this.imgUrl = imgUrl;
   }
 }
 
@@ -89,7 +89,8 @@ async function createAds(ad) {
     ad.begin,
     ad.end,
     ad.deliveryMethod,
-    ad.active
+    ad.active,
+    ad.imgUrl
   );
   try {
     await adsDb.create(adToSave);
