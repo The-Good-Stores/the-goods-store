@@ -39,8 +39,19 @@ async function registerUser(user) {
     return false;
   }
 }
+
+async function updateProfile(username, update) {
+  const updatedUser = await userDb.findOneAndUpdate(
+    {
+      username,
+    },
+    update
+  );
+  return updatedUser ? updatedUser : false;
+}
 module.exports = {
   registerUser,
   User,
   findUser,
+  updateProfile,
 };
