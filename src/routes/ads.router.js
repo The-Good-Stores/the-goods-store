@@ -58,4 +58,7 @@ adsRouter
   .post("/add-question/:id", httpApiPostQuestion)
   //POST add answer (params: id = adsId && qid = quesiton id)
   .post("/add-answer/:id/:qid", requireAuth, httpApiPostAddAnswer);
-module.exports = adsRouter;
+module.exports = {
+  adsRouter,
+  requireAuth,
+};

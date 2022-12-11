@@ -9,7 +9,7 @@
 // Yeom, Hanna
 const express = require("express");
 const userRouter = require("./user.router");
-const adsRouter = require("./ads.router");
+const { adsRouter } = require("./ads.router");
 const router = express.Router();
 
 router.use("/ads", adsRouter);

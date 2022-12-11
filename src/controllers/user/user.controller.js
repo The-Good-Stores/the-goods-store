@@ -9,7 +9,12 @@
 // Yeom, Hanna
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const { User, registerUser, findUser } = require("../../models/user.model");
+const {
+  User,
+  registerUser,
+  findUser,
+  updateProfile,
+} = require("../../models/user.model");
 const jwt = require("jsonwebtoken");
 async function httpApiGetLogout(req, res, next) {
   req.logout(function (err) {
@@ -112,8 +117,36 @@ async function httpApiPostLogin(req, res, next) {
     }
   })(req, res, next);
 }
+
+//////// Update Profile
+
+async function httpGetUser(req, res) {
+  const username = req.user.username;
+  console.log(username);
+  const user = await findUser({ username });
+  if (user) {
+    res.status(200).json({
+      succes: true,
+      data: user,
+    });
+  }
+}
+
+async function httpPostEditProfile(req, res) {
+  const newInfo = { username: req.body.username, email: req.body.email };
+  const updated = await updateProfile(req.user.username, newInfo);
+  if (updated) {
+    res.status(201).json({
+      success: true,
+      data: updated,
+    });
+  }
+}
+
 module.exports = {
   httpApiPostRegisterUser,
   httpApiPostLogin,
   httpApiGetLogout,
+  httpPostEditProfile,
+  httpGetUser,
 };
